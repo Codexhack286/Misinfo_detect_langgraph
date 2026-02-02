@@ -14,3 +14,9 @@ venv.bak/
 *.swp
 *.swo
 .DS_Store
+
+# HuggingFace Cache
+.cache/
+
+# Streamlit
+.streamlit/secrets.toml

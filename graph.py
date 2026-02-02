@@ -5,9 +5,21 @@ from tools.factcheck import google_fact_check
 from tools.alternatives import fetch_alternatives
 from tools.extraction import extract_headline
 from tools.perplexity import perplexity_verify
+from tools.translator import translate_content
 from llm import llm
 
 # ------------------ Nodes ------------------
+
+def translation_node(state: MisinformationState):
+    """
+    Translates input text to English if necessary.
+    """
+    result = translate_content(state["article_text"])
+    state["article_text"] = result["translated_text"]
+    state["original_language"] = result["original_language"]
+    state["original_text"] = result["original_text"]
+    return state
+
 
 def extract_headline_node(state: MisinformationState):
     # Extract headline if not provided or to ensure accuracy
@@ -120,6 +132,7 @@ def fact_check_route(state: MisinformationState):
 
 builder = StateGraph(MisinformationState)
 
+builder.add_node("translate", translation_node)
 builder.add_node("extract", extract_headline_node)
 builder.add_node("search", search_node)
 builder.add_node("fact_check", fact_check_node)
@@ -127,8 +140,9 @@ builder.add_node("perplexity_check", perplexity_check_node) # New Fallback Node
 builder.add_node("summary", summary_node)
 builder.add_node("alternatives", alternatives_node)
 
-builder.set_entry_point("extract")
+builder.set_entry_point("translate")
 
+builder.add_edge("translate", "extract")
 builder.add_edge("extract", "search")
 builder.add_edge("search", "fact_check")
 

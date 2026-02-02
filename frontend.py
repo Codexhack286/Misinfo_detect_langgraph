@@ -29,9 +29,19 @@ if st.button("Verify Article", type="primary"):
                 confidence = result.get("confidence", "0%")
                 summary = result.get("summary", "No summary available.")
                 alternatives = result.get("alternatives", [])
+                original_language = result.get("original_language", "en")
+                original_text = result.get("original_text", "")
+                translated_text = result.get("article_text", "")
                 
                 # Layout Results
                 st.divider()
+                
+                # Translation Display
+                if original_language and original_language != "en" and original_language != "unknown":
+                    st.warning(f"🌐 Translated from **{original_language.upper()}**")
+                    with st.expander("View Translated Text (English)"):
+                        st.write(translated_text)
+                
                 st.subheader("Analysis Results")
                 
                 # Metrics Row
