@@ -9,7 +9,7 @@ A robust, multi-layered AI agent designed to verify news headlines and claims us
 *   **Strict Fact-Checking**: Prioritizes authoritative sources from the Google FactCheck Tools API.
 *   **Real-Time Fallback**: Smart fallback to **Perplexity AI** for recent events (post-2024) or claims not yet indexed by traditional fact-checkers.
 *   **Trusted Alternatives**: Fetches reliable news sources if a claim is debunked.
-*   **Multilingual Support**: Automatically detects and translates articles from 300+ languages to English for verification using local HuggingFace transformers (`Helsinki-NLP/opus-mt-mul-en`).
+*   **Multilingual Support**: Automatically detects and translates articles from 100+ languages to English for verification using local HuggingFace transformers (`Helsinki-NLP/opus-mt-mul-en`).
 *   **Streamlit Frontend**: Clean, interactive UI for easy testing and demonstrations.
 
 ## 🏗️ Architecture
